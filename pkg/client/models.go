@@ -3,16 +3,18 @@ package client
 import "spike.io/bin"
 
 type Topic struct {
-	Topic   string `json:"topic,omitempty"`
-	GroupId string `json:"group_id,omitempty"`
-	Offset  int64  `json:"offset,omitempty"`
+	Topic      string `json:"topic,omitempty"`
+	GroupId    string `json:"group_id,omitempty"`
+	Offset     int64  `json:"offset,omitempty"`
+	Persistent bool   `json:"persistent,omitempty"`
 }
 
 func (m *Topic) ProtoMessage() *bin.Topic {
 	return &bin.Topic{
-		Topic:   m.Topic,
-		GroupId: m.GroupId,
-		Offset:  m.Offset,
+		Topic:      m.Topic,
+		GroupId:    m.GroupId,
+		Offset:     m.Offset,
+		Persistent: m.Persistent,
 	}
 }
 

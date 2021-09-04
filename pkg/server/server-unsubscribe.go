@@ -25,23 +25,6 @@ func (s *server) unsubscribe(topic *bin.Topic) {
 	defer s.m.Unlock()
 	s.m.Lock()
 
-	if s.monitors == nil {
-		s.monitors = make(map[string][]*monitor)
-	}
-	var updatedMonitors []*monitor
-	mon := s.monitors[topic.Topic]
-	for _, m := range mon {
-		if m.topic.GetGroupId() != topic.GetGroupId() {
-			updatedMonitors = append(updatedMonitors, m)
-		} else {
-			m.Spike_MonitorEventServer.Send(&bin.Message{Offset: -1})
-		}
-	}
-	s.monitors[topic.GetTopic()] = updatedMonitors
-	if len(s.monitors[topic.GetTopic()]) == 0 {
-		delete(s.monitors, topic.GetTopic())
-	}
-
 	if s.subscribers == nil {
 		s.subscribers = make(map[string][]*subscribe)
 	}

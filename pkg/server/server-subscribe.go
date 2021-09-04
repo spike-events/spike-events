@@ -7,24 +7,10 @@ import (
 	"spike.io/internal/models"
 )
 
-type monitor struct {
-	topic *bin.Topic
-	bin.Spike_MonitorEventServer
-}
-
 type subscribe struct {
 	bin.Spike_SubscribeServer
 	topic   *bin.Topic
 	dbTopic *models.Topic
-}
-
-func (s *server) registerMonitor(topic *bin.Topic, eventServer bin.Spike_MonitorEventServer) {
-	defer s.m.Unlock()
-	s.m.Lock()
-	if s.monitors == nil {
-		s.monitors = make(map[string][]*monitor)
-	}
-	s.monitors[topic.Topic] = append(s.monitors[topic.Topic], &monitor{topic, eventServer})
 }
 
 func (s *server) registerSubscribe(topic *bin.Topic, eventServer bin.Spike_SubscribeServer) {
@@ -52,16 +38,6 @@ func (s *server) registerSubscribeDatabase(topic *bin.Topic) models.Topic {
 		log.Println(err)
 	}
 	return dbTopic
-}
-
-func (s *server) MonitorEvent(topic *bin.Topic, eventServer bin.Spike_MonitorEventServer) error {
-	select {
-	case <-eventServer.Context().Done():
-		return fmt.Errorf("closed monitor event")
-	default:
-	}
-	s.registerMonitor(topic, eventServer)
-	return nil
 }
 
 func (s *server) Subscribe(topic *bin.Topic, subscribeServer bin.Spike_SubscribeServer) error {

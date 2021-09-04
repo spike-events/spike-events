@@ -18,7 +18,6 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SpikeClient interface {
-	MonitorEvent(ctx context.Context, in *Topic, opts ...grpc.CallOption) (Spike_MonitorEventClient, error)
 	Subscribe(ctx context.Context, in *Topic, opts ...grpc.CallOption) (Spike_SubscribeClient, error)
 	Unsubscribe(ctx context.Context, in *Topic, opts ...grpc.CallOption) (*Success, error)
 	Publish(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Success, error)
@@ -32,40 +31,8 @@ func NewSpikeClient(cc grpc.ClientConnInterface) SpikeClient {
 	return &spikeClient{cc}
 }
 
-func (c *spikeClient) MonitorEvent(ctx context.Context, in *Topic, opts ...grpc.CallOption) (Spike_MonitorEventClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Spike_ServiceDesc.Streams[0], "/bin.Spike/MonitorEvent", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &spikeMonitorEventClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type Spike_MonitorEventClient interface {
-	Recv() (*Message, error)
-	grpc.ClientStream
-}
-
-type spikeMonitorEventClient struct {
-	grpc.ClientStream
-}
-
-func (x *spikeMonitorEventClient) Recv() (*Message, error) {
-	m := new(Message)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 func (c *spikeClient) Subscribe(ctx context.Context, in *Topic, opts ...grpc.CallOption) (Spike_SubscribeClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Spike_ServiceDesc.Streams[1], "/bin.Spike/Subscribe", opts...)
+	stream, err := c.cc.NewStream(ctx, &Spike_ServiceDesc.Streams[0], "/bin.Spike/Subscribe", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +85,6 @@ func (c *spikeClient) Publish(ctx context.Context, in *Message, opts ...grpc.Cal
 // All implementations should embed UnimplementedSpikeServer
 // for forward compatibility
 type SpikeServer interface {
-	MonitorEvent(*Topic, Spike_MonitorEventServer) error
 	Subscribe(*Topic, Spike_SubscribeServer) error
 	Unsubscribe(context.Context, *Topic) (*Success, error)
 	Publish(context.Context, *Message) (*Success, error)
@@ -128,9 +94,6 @@ type SpikeServer interface {
 type UnimplementedSpikeServer struct {
 }
 
-func (UnimplementedSpikeServer) MonitorEvent(*Topic, Spike_MonitorEventServer) error {
-	return status.Errorf(codes.Unimplemented, "method MonitorEvent not implemented")
-}
 func (UnimplementedSpikeServer) Subscribe(*Topic, Spike_SubscribeServer) error {
 	return status.Errorf(codes.Unimplemented, "method Subscribe not implemented")
 }
@@ -150,27 +113,6 @@ type UnsafeSpikeServer interface {
 
 func RegisterSpikeServer(s grpc.ServiceRegistrar, srv SpikeServer) {
 	s.RegisterService(&Spike_ServiceDesc, srv)
-}
-
-func _Spike_MonitorEvent_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Topic)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(SpikeServer).MonitorEvent(m, &spikeMonitorEventServer{stream})
-}
-
-type Spike_MonitorEventServer interface {
-	Send(*Message) error
-	grpc.ServerStream
-}
-
-type spikeMonitorEventServer struct {
-	grpc.ServerStream
-}
-
-func (x *spikeMonitorEventServer) Send(m *Message) error {
-	return x.ServerStream.SendMsg(m)
 }
 
 func _Spike_Subscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -247,11 +189,6 @@ var Spike_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "MonitorEvent",
-			Handler:       _Spike_MonitorEvent_Handler,
-			ServerStreams: true,
-		},
 		{
 			StreamName:    "Subscribe",
 			Handler:       _Spike_Subscribe_Handler,

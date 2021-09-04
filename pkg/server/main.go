@@ -10,7 +10,6 @@ import (
 )
 
 type server struct {
-	monitors    map[string][]*monitor
 	subscribers map[string][]*subscribe
 	m           sync.Mutex
 	db          database.Service
@@ -23,7 +22,6 @@ func New(host string) {
 	}
 
 	srv := &server{
-		monitors:    make(map[string][]*monitor),
 		subscribers: make(map[string][]*subscribe),
 		db:          database.New(),
 	}

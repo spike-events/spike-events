@@ -9,7 +9,6 @@ import (
 
 func (s *server) sendMessage(message *bin.Message, newMessage bool) error {
 	s.m.Lock()
-	mon := s.monitors[message.GetTopic()]
 	subs := s.subscribers[message.GetTopic()]
 	s.m.Unlock()
 
@@ -31,17 +30,6 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool) error {
 			wg.Done()
 		}
 	}()
-
-	for _, item := range mon {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			err := item.Send(message)
-			if err != nil {
-				// TODO: resend?
-			}
-		}()
-	}
 
 	for _, item := range subs {
 		wg.Add(1)

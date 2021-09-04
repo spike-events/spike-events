@@ -10,7 +10,6 @@ import (
 
 type Conn interface {
 	Subscribe(ctx context.Context, topic Topic) (*Subscriber, error)
-	MonitorEvent(ctx context.Context, topic Topic) (*Subscriber, error)
 	Unsubscribe(topic Topic) (*Success, error)
 	Publish(topic Message) (*Success, error)
 }
@@ -43,15 +42,6 @@ func (c *srv) Publish(message Message) (*Success, error) {
 		return nil, err
 	}
 	return protoToSuccess(success), err
-}
-
-func (c *srv) MonitorEvent(ctx context.Context, topic Topic) (*Subscriber, error) {
-	client := bin.NewSpikeClient(c.conn)
-	stream, err := client.MonitorEvent(ctx, topic.ProtoMessage())
-	if err != nil {
-		return nil, err
-	}
-	return c.subscribe(ctx, topic, stream), err
 }
 
 func (c *srv) Subscribe(ctx context.Context, topic Topic) (*Subscriber, error) {
