@@ -37,7 +37,7 @@ func (s *srv) Subscribe(topicName, groupID string, offset int64) (models.Topic, 
 	return topic, err
 }
 
-func (s *srv) TopicMessages(topic models.Topic, topicName, groupID string, offset int64) ([]*bin.Message, error) {
+func (s *srv) TopicMessages(topic models.Topic, groupID string, offset int64) ([]*bin.Message, error) {
 	var result []*bin.Message
 
 	// load messages

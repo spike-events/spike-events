@@ -23,7 +23,7 @@ func (s *server) registerSubscribe(topic *bin.Topic, eventServer bin.Spike_Subsc
 		dbTopic := s.registerSubscribeDatabase(topic)
 		s.subscribers[topic.Topic] = append(s.subscribers[topic.Topic], &subscribe{eventServer, topic, &dbTopic})
 		go func() {
-			messages, err := s.db.TopicMessages(dbTopic, topic.Topic, topic.GroupId, topic.Offset)
+			messages, err := s.db.TopicMessages(dbTopic, topic.GroupId, topic.Offset)
 			if err != nil {
 				log.Println(err)
 			}
