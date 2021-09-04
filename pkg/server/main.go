@@ -10,9 +10,10 @@ import (
 )
 
 type server struct {
-	subscribers map[string][]*subscribe
-	m           sync.Mutex
-	db          database.Service
+	subscribers               map[string][]*subscribe
+	subscribersNonPersistence map[string][]*subscribe
+	m                         sync.Mutex
+	db                        database.Service
 }
 
 func New(host string) {

@@ -19,17 +19,21 @@ func (s *server) registerSubscribe(topic *bin.Topic, eventServer bin.Spike_Subsc
 	if s.subscribers == nil {
 		s.subscribers = make(map[string][]*subscribe)
 	}
-	dbTopic := s.registerSubscribeDatabase(topic)
-	s.subscribers[topic.Topic] = append(s.subscribers[topic.Topic], &subscribe{eventServer, topic, &dbTopic})
-	go func() {
-		messages, err := s.db.TopicMessages(dbTopic, topic.Topic, topic.GroupId, topic.Offset)
-		if err != nil {
-			log.Println(err)
-		}
-		for _, item := range messages {
-			s.sendMessage(item, false)
-		}
-	}()
+	if topic.Persistent {
+		dbTopic := s.registerSubscribeDatabase(topic)
+		s.subscribers[topic.Topic] = append(s.subscribers[topic.Topic], &subscribe{eventServer, topic, &dbTopic})
+		go func() {
+			messages, err := s.db.TopicMessages(dbTopic, topic.Topic, topic.GroupId, topic.Offset)
+			if err != nil {
+				log.Println(err)
+			}
+			for _, item := range messages {
+				s.sendMessage(item, false)
+			}
+		}()
+	} else {
+		s.subscribersNonPersistence[topic.Topic] = append(s.subscribersNonPersistence[topic.Topic], &subscribe{eventServer, topic, nil})
+	}
 }
 
 func (s *server) registerSubscribeDatabase(topic *bin.Topic) models.Topic {

@@ -10,6 +10,7 @@ import (
 func (s *server) sendMessage(message *bin.Message, newMessage bool) error {
 	s.m.Lock()
 	subs := s.subscribers[message.GetTopic()]
+	subsNonPersistent := s.subscribersNonPersistence[message.GetTopic()]
 	s.m.Unlock()
 
 	if newMessage && len(subs) > 0 {
@@ -32,6 +33,20 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool) error {
 	}()
 
 	for _, item := range subs {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			err := item.Send(message)
+			if err != nil {
+				// TODO: resend?
+				return
+			}
+			wg.Add(1)
+			cUpdateSent <- item
+		}()
+	}
+
+	for _, item := range subsNonPersistent {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
