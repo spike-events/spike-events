@@ -13,7 +13,7 @@ type Topic struct {
 	Table      string
 	Name       string `gorm:"index"`
 	OffsetData datatypes.JSON
-	Offset     map[GroupID]int64 `gorm:"-"`
+	Offset     map[GroupID]*int64 `gorm:"-"`
 }
 
 func (u *Topic) BeforeSave(tx *gorm.DB) (err error) {

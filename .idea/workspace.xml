@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd3ed2d6-b08c-4245-999f-7d85b7bba30f" name="Changes" comment="" />
+    <list default="true" id="cd3ed2d6-b08c-4245-999f-7d85b7bba30f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/client/client-handlers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/client/client-publish.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/client/client-subscribe.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/client/client-unsubscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/topic.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/topic.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-subscribe.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +29,9 @@
     </option>
   </component>
   <component name="GOROOT" url="file:///usr/lib/go-1.16" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
@@ -34,9 +48,12 @@
     <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/client" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg/client" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/bin" />
     </key>
@@ -44,6 +61,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

@@ -3,7 +3,6 @@ package database
 import (
 	"fmt"
 	"github.com/google/uuid"
-	"log"
 	"spike.io/bin"
 	"spike.io/internal/models"
 	"strings"
@@ -13,13 +12,15 @@ var TemplateTableName = "topic_messages_%v"
 
 func (s *srv) Subscribe(topicName, groupID string, offset int64) (models.Topic, error) {
 	var topic models.Topic
+
 	err := s.Where(&models.Topic{Name: topicName}).First(&topic).Error
 	if err != nil {
 		//new subscribe
 		id := strings.ReplaceAll(uuid.New().String(), "-", "")
 
+		var zero int64 = 0
 		topic.Name = topicName
-		topic.Offset[models.GroupID(groupID)] = 0
+		topic.Offset[models.GroupID(groupID)] = &zero
 		topic.Table = fmt.Sprintf(TemplateTableName, id)
 		err = s.Create(&topic).Error
 		if err != nil {
@@ -57,11 +58,15 @@ func (s *srv) TopicMessages(topic models.Topic, groupID string, offset int64) ([
 	}
 
 	// update group
-	topic.Offset[models.GroupID(groupID)] = 0
-	err := s.Save(&topic).Error
-	if err != nil {
-		log.Println(err)
+	exists := topic.Offset[models.GroupID(groupID)]
+	if exists == nil {
+		var zero int64 = 0
+		topic.Offset[models.GroupID(groupID)] = &zero
+		err := s.Save(&topic).Error
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return result, err
+	return result, nil
 }
