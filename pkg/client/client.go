@@ -10,16 +10,16 @@ type Conn interface {
 	Subscribe(ctx context.Context, topic Topic) (*Subscriber, error)
 	Unsubscribe(topic Topic) (*Success, error)
 	Publish(topic Message) (*Success, error)
-	OnDisconnect(handler func(error))
-	OnError(handler func(error))
+	OnDisconnect(handler func(Topic, error))
+	OnError(handler func(Topic, error))
 }
 
 type srv struct {
 	conn   *grpc.ClientConn
 	client bin.SpikeClient
 
-	onDisconnect func(error)
-	onError      func(error)
+	onDisconnect func(Topic, error)
+	onError      func(Topic, error)
 }
 
 func New(host string) (Conn, error) {

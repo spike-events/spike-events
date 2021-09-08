@@ -15,6 +15,7 @@ func (s *srv) Subscribe(topicName, groupID string, offset int64) (models.Topic, 
 
 	err := s.Where(&models.Topic{Name: topicName}).First(&topic).Error
 	if err != nil {
+		topic.Offset = make(map[models.GroupID]*int64)
 		//new subscribe
 		id := strings.ReplaceAll(uuid.New().String(), "-", "")
 

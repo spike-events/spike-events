@@ -9,6 +9,6 @@ func NewClient(host string) (client.Conn, error) {
 	return client.New(host)
 }
 
-func NewServer(host string) {
-	server.New(host)
+func NewServer(host string) (chan bool, error) {
+	return server.New(host)
 }

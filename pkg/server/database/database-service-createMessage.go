@@ -5,11 +5,11 @@ import (
 	"spike.io/internal/models"
 )
 
-func (s *srv) CreateMessage(message *bin.Message) error {
+func (s *srv) CreateMessage(topic *models.Topic, message *bin.Message) error {
 	msg := models.Message{
 		Message: *message,
 	}
-	err := s.Create(&msg).Error
+	err := s.Table(topic.Table).Create(&msg).Error
 	if err != nil {
 		return err
 	}

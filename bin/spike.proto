@@ -42,8 +42,7 @@ message Topic {
 
 message Message {
     string topic = 1;
-    string group_id = 2;
-    int64 offset = 3;
-    bytes value = 4;
-    map<string, bytes> header = 5;
+    int64 offset = 2;
+    bytes value = 3;
+    map<string, bytes> header = 4;
 }

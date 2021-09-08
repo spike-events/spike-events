@@ -16,24 +16,29 @@ type server struct {
 	db                        database.Service
 }
 
-func New(host string) {
+func New(host string) (chan bool, error) {
 	lis, err := net.Listen("tcp", host)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		return nil, err
 	}
+	c := make(chan bool)
+	go func() {
+		srv := &server{
+			subscribers: make(map[string][]*subscribe),
+			db:          database.New(),
+		}
 
-	srv := &server{
-		subscribers: make(map[string][]*subscribe),
-		db:          database.New(),
-	}
+		s := grpc.NewServer()
+		bin.RegisterSpikeServer(s, srv)
 
-	s := grpc.NewServer()
-	bin.RegisterSpikeServer(s, srv)
+		log.Println("start server")
 
-	log.Println("start server")
+		// and start...
+		c <- true
+		if err := s.Serve(lis); err != nil {
+			log.Fatalf("failed to serve: %v", err)
+		}
+	}()
+	return c, nil
 
-	// and start...
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
-	}
 }

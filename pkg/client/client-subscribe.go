@@ -5,10 +5,17 @@ import (
 	"fmt"
 	"google.golang.org/grpc"
 	"io"
+	"log"
 	"spike.io/bin"
 )
 
 func (c *srv) Subscribe(ctx context.Context, topic Topic) (*Subscriber, error) {
+	if len(topic.Topic) == 0 {
+		return nil, fmt.Errorf("topic is required")
+	}
+	if len(topic.GroupId) == 0 {
+		return nil, fmt.Errorf("groupId is required")
+	}
 	client := bin.NewSpikeClient(c.conn)
 	stream, err := client.Subscribe(ctx, topic.ProtoMessage())
 	if err != nil {
@@ -34,23 +41,18 @@ func (c *srv) subscribe(ctx context.Context, topic Topic, stream grpc.ClientStre
 			err := stream.RecvMsg(&message)
 			if err == io.EOF {
 				if c.onDisconnect != nil {
-					go c.onDisconnect(fmt.Errorf("disconnect io.EOF"))
+					go c.onDisconnect(topic, fmt.Errorf("disconnect io.EOF"))
 				}
 				sub.connect = false
 				return
 			}
 			if err != nil {
 				if c.onError != nil {
-					go c.onError(err)
+					go c.onError(topic, err)
 				}
 				continue
 			}
-			if message.GetOffset() == -1 {
-				if c.onDisconnect != nil {
-					go c.onDisconnect(fmt.Errorf("disconnect unsubscribe"))
-				}
-				return
-			}
+			log.Println("new message:", message)
 			channel <- protoToMessage(&message)
 		}
 	}()

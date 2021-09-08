@@ -34,7 +34,6 @@ func protoToSuccess(message *bin.Success) *Success {
 
 type Message struct {
 	Topic   string            `json:"topic,omitempty"`
-	GroupId string            `json:"group_id,omitempty"`
 	Offset  int64             `json:"offset,omitempty"`
 	Value   []byte            `json:"value,omitempty"`
 	Header  map[string][]byte `json:"header,omitempty"`
@@ -43,7 +42,6 @@ type Message struct {
 func protoToMessage(message *bin.Message) *Message {
 	return &Message{
 		Topic:   message.GetTopic(),
-		GroupId: message.GetGroupId(),
 		Offset:  message.GetOffset(),
 		Value:   message.GetValue(),
 		Header:  message.GetHeader(),
@@ -53,7 +51,6 @@ func protoToMessage(message *bin.Message) *Message {
 func (m *Message) ProtoMessage() *bin.Message {
 	return &bin.Message{
 		Topic:   m.Topic,
-		GroupId: m.GroupId,
 		Offset:  m.Offset,
 		Value:   m.Value,
 		Header:  m.Header,

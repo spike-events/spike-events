@@ -33,9 +33,9 @@ func (s *server) unsubscribe(topic *bin.Topic) {
 	for _, m := range sub {
 		if m.topic.GetGroupId() != topic.GetGroupId() {
 			updatedSubscribers = append(updatedSubscribers, m)
-		} else {
-			m.Spike_SubscribeServer.Send(&bin.Message{Offset: -1})
 		}
+		close(m.msg)
+		close(m.success)
 	}
 	s.subscribers[topic.GetTopic()] = updatedSubscribers
 	if len(s.subscribers[topic.GetTopic()]) == 0 {
@@ -47,9 +47,9 @@ func (s *server) unsubscribe(topic *bin.Topic) {
 	for _, m := range subNonPersistent {
 		if m.topic.GetGroupId() != topic.GetGroupId() {
 			updatedSubscribersNonPersistent = append(updatedSubscribersNonPersistent, m)
-		} else {
-			m.Spike_SubscribeServer.Send(&bin.Message{Offset: -1})
 		}
+		close(m.msg)
+		close(m.success)
 	}
 	s.subscribersNonPersistence[topic.GetTopic()] = updatedSubscribersNonPersistent
 	if len(s.subscribersNonPersistence[topic.GetTopic()]) == 0 {
