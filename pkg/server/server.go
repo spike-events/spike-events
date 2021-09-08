@@ -31,6 +31,7 @@ func New(host string) {
 	bin.RegisterSpikeServer(s, srv)
 
 	log.Println("start server")
+
 	// and start...
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

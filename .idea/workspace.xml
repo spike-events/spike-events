@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd3ed2d6-b08c-4245-999f-7d85b7bba30f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/client/client-handlers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/client/client-publish.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/client/client-subscribe.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/client/client-unsubscribe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/models/topic.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/topic.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/server-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
