@@ -2,16 +2,14 @@ package server
 
 import (
 	"fmt"
-	"github.com/google/uuid"
 	"spike.io/bin"
 	"spike.io/internal/models"
-	"sync"
 )
 
 type balancerMessage struct {
 }
 
-func (s *server) sendMessage(message *bin.Message, newMessage bool, id uuid.UUID) error {
+func (s *server) sendMessage(message *bin.Message, newMessage bool, id string) error {
 	s.m.Lock()
 	subs := s.subscribers[message.GetTopic()]
 	subsNonPersistent := s.subscribersNonPersistence[message.GetTopic()]
@@ -39,63 +37,59 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool, id uuid.UUID
 		}
 	}
 
-	var wg sync.WaitGroup
-	cUpdateSent := make(chan *subscribe)
-	go func() {
-		for sub := range cUpdateSent {
-			offset := sub.dbTopic.Offset[models.GroupID(sub.topic.GetGroupId())]
-			if offset == nil || message.Offset > *offset {
-				offset := message.Offset
-				sub.dbTopic.Offset[models.GroupID(sub.topic.GetGroupId())] = &offset
-			}
-			wg.Done()
-		}
-	}()
-
 	next := func(subs []*subscribe) *subscribe {
-		for _, n := range subs {
+		for i, n := range subs {
 			if n.next {
-				n.nextSub.next = true
-				if len(subs) > 1 {
-					n.next = false
+				n.next = false
+				if len(subs)-1 == i {
+					subs[0].next = true
+				} else {
+					subs[i+1].next = true
 				}
 				return n
 			}
 		}
 		return nil
 	}
-	send := func(subs map[string][]*subscribe, persistent bool) {
+	updateOffset := func(group string) {
+		for _, sub := range subs {
+			if sub.topic.GroupId == group {
+				sub.dbTopic.Offset[models.GroupID(group)] = &message.Offset
+			}
+		}
+	}
+	send := func(subs map[string][]*subscribe, persistent bool) error {
+		var err error
 		for _, item := range subs {
 			for i := 0; i < len(item); i++ {
 				n := next(item)
 				fmt.Println("send message channel:", message)
 				n.msg <- message
 				fmt.Println("read message channel:", message)
-				err := <-n.success
+				err = <-n.success
 				if err != nil {
 					// TODO: resend?
 					continue
 				}
+				err = nil
 				if persistent {
-					wg.Add(1)
-					cUpdateSent <- n
+					updateOffset(n.topic.GroupId)
 				}
 				break
 			}
 		}
+		return err
 	}
-	send(groupsSubs, true)
+	err := send(groupsSubs, true)
 	send(groupsSubsNonPersistent, false)
 
-	wg.Wait()
-	close(cUpdateSent)
+	if err != nil {
+		return err
+	}
 
 	if len(subs) > 0 {
-		var topics []*models.Topic
-		for _, t := range subs {
-			topics = append(topics, t.dbTopic)
-		}
-		go s.db.UpdateTopics(topics)
+		err := s.db.UpdateTopics(subs[0].dbTopic)
+		return err
 	}
 
 	return nil

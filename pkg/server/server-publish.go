@@ -3,7 +3,6 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/google/uuid"
 	"spike.io/bin"
 )
 
@@ -18,6 +17,9 @@ func (s *server) Publish(ctx context.Context, message *bin.Message) (*bin.Succes
 	default:
 	}
 	fmt.Println("publish:", message)
-	s.sendMessage(message, true, uuid.Nil)
+	err = s.sendMessage(message, true, "")
+	if err != nil {
+		return responseError(err.Error()), err
+	}
 	return ResponseSuccess, nil
 }

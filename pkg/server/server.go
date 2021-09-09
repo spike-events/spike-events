@@ -7,6 +7,7 @@ import (
 	"spike.io/bin"
 	"spike.io/pkg/server/database"
 	"sync"
+	"time"
 )
 
 type server struct {
@@ -33,8 +34,11 @@ func New(host string) (chan bool, error) {
 
 		log.Println("start server")
 
-		// and start...
-		c <- true
+		// and start...c
+		go func() {
+			<-time.After(time.Millisecond * 500)
+			c <- true
+		}()
 		if err := s.Serve(lis); err != nil {
 			log.Fatalf("failed to serve: %v", err)
 		}

@@ -45,14 +45,14 @@ func (s *srv) TopicMessages(topic models.Topic, groupID string, offset int64) ([
 	// load messages
 	if offset > 0 {
 		var messages []models.Message
-		s.Table(topic.Table).Where("id > ?", offset).Order("id").First(&messages)
+		s.Table(topic.Table).Where("id >= ?", offset).Order("id").Find(&messages)
 		for _, item := range messages {
 			result = append(result, &item.Message)
 		}
 	} else {
 		lastOffset := topic.Offset[models.GroupID(groupID)]
 		var messages []models.Message
-		s.Table(topic.Table).Where("id > ?", lastOffset).Order("id").First(&messages)
+		s.Table(topic.Table).Where("id >= ?", lastOffset).Order("id").First(&messages)
 		for _, item := range messages {
 			result = append(result, &item.Message)
 		}

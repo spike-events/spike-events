@@ -5,9 +5,10 @@ import (
 	"spike.io/internal/models"
 )
 
-func (s *srv) UpdateTopics(topics []*models.Topic) {
-	err := s.Save(&topics).Error
+func (s *srv) UpdateTopics(topic *models.Topic) error {
+	err := s.Save(topic).Error
 	if err != nil {
 		log.Println(err)
 	}
+	return err
 }

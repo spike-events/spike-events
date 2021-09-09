@@ -2,14 +2,17 @@ package client
 
 import (
 	"context"
+	"spike.io/bin"
+	"sync"
 )
 
 type Subscriber struct {
 	m       chan *Message
 	connect bool
-	topic   Topic
+	topic   *bin.Topic
 	ctx     context.Context
 	client  *srv
+	wg      sync.WaitGroup
 }
 
 func (s *Subscriber) Connected() bool {
@@ -17,7 +20,8 @@ func (s *Subscriber) Connected() bool {
 }
 
 func (s *Subscriber) Close() error {
-	_, err := s.client.Unsubscribe(s.topic)
+	_, err := s.client.unsubscribe(s.topic)
+	s.wg.Wait()
 	return err
 }
 

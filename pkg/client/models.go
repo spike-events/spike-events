@@ -24,6 +24,15 @@ type Success struct {
 	Message string `json:"message,omitempty"`
 }
 
+func protoToTopic(message *bin.Topic) Topic {
+	return Topic{
+		Topic:      message.GetTopic(),
+		GroupId:    message.GetGroupId(),
+		Offset:     message.GetOffset(),
+		Persistent: message.GetPersistent(),
+	}
+}
+
 func protoToSuccess(message *bin.Success) *Success {
 	return &Success{
 		Success: message.GetSuccess(),
@@ -33,26 +42,26 @@ func protoToSuccess(message *bin.Success) *Success {
 }
 
 type Message struct {
-	Topic   string            `json:"topic,omitempty"`
-	Offset  int64             `json:"offset,omitempty"`
-	Value   []byte            `json:"value,omitempty"`
-	Header  map[string][]byte `json:"header,omitempty"`
+	Topic  string            `json:"topic,omitempty"`
+	Offset int64             `json:"offset,omitempty"`
+	Value  []byte            `json:"value,omitempty"`
+	Header map[string][]byte `json:"header,omitempty"`
 }
 
 func protoToMessage(message *bin.Message) *Message {
 	return &Message{
-		Topic:   message.GetTopic(),
-		Offset:  message.GetOffset(),
-		Value:   message.GetValue(),
-		Header:  message.GetHeader(),
+		Topic:  message.GetTopic(),
+		Offset: message.GetOffset(),
+		Value:  message.GetValue(),
+		Header: message.GetHeader(),
 	}
 }
 
 func (m *Message) ProtoMessage() *bin.Message {
 	return &bin.Message{
-		Topic:   m.Topic,
-		Offset:  m.Offset,
-		Value:   m.Value,
-		Header:  m.Header,
+		Topic:  m.Topic,
+		Offset: m.Offset,
+		Value:  m.Value,
+		Header: m.Header,
 	}
 }

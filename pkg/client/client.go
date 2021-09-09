@@ -8,7 +8,7 @@ import (
 
 type Conn interface {
 	Subscribe(ctx context.Context, topic Topic) (*Subscriber, error)
-	Unsubscribe(topic Topic) (*Success, error)
+	unsubscribe(topic *bin.Topic) (*Success, error)
 	Publish(topic Message) (*Success, error)
 	OnDisconnect(handler func(Topic, error))
 	OnError(handler func(Topic, error))

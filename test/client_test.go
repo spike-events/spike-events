@@ -7,7 +7,9 @@ import (
 	spike_io "spike.io"
 	"spike.io/internal/env"
 	"spike.io/pkg/client"
+	"sync"
 	"testing"
+	"time"
 )
 
 func TestClient(t *testing.T) {
@@ -32,7 +34,7 @@ func TestClient(t *testing.T) {
 	})
 
 	ctx := context.Background()
-	sub, err := spikeConn.Subscribe(ctx, client.Topic{
+	sub1, err := spikeConn.Subscribe(ctx, client.Topic{
 		Topic:      "spike.event",
 		GroupId:    "monitor",
 		Offset:     0,
@@ -43,13 +45,89 @@ func TestClient(t *testing.T) {
 		t.FailNow()
 	}
 
-	value, _ := json.Marshal(map[string]interface{}{"ok": true})
-	spikeConn.Publish(client.Message{
-		Topic: "spike.event",
-		Value: value,
+	sub2, err := spikeConn.Subscribe(ctx, client.Topic{
+		Topic:      "spike.event",
+		GroupId:    "monitor",
+		Offset:     0,
+		Persistent: true,
 	})
+	if err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
 
-	msg := <-sub.Event()
+	sub3, err := spikeConn.Subscribe(ctx, client.Topic{
+		Topic:      "spike.event",
+		GroupId:    "monitor",
+		Offset:     0,
+		Persistent: true,
+	})
+	if err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
 
-	fmt.Println(msg)
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < 10; i++ {
+			value, _ := json.Marshal(map[string]interface{}{"ok": true})
+			wg.Add(1)
+			spikeConn.Publish(client.Message{
+				Topic: "spike.event",
+				Value: value,
+			})
+			<-time.After(time.Second)
+		}
+	}()
+
+	go func() {
+		for msg := range sub1.Event() {
+			fmt.Println("sub1:", msg)
+			wg.Done()
+		}
+	}()
+
+	go func() {
+		for msg := range sub2.Event() {
+			fmt.Println("sub2:", msg)
+			wg.Done()
+		}
+	}()
+
+	go func() {
+		for msg := range sub3.Event() {
+			fmt.Println("sub3:", msg)
+			wg.Done()
+		}
+	}()
+
+	wg.Wait()
+
+	sub1.Close()
+	sub2.Close()
+	sub3.Close()
+
+	sub4, err := spikeConn.Subscribe(ctx, client.Topic{
+		Topic:      "spike.event",
+		GroupId:    "monitor",
+		Offset:     1,
+		Persistent: true,
+	})
+	if err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
+
+	wg.Add(10)
+	go func() {
+		for msg := range sub4.Event() {
+			fmt.Println("sub4:", msg)
+			wg.Done()
+		}
+	}()
+
+	wg.Wait()
+
 }

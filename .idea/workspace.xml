@@ -6,7 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="cd3ed2d6-b08c-4245-999f-7d85b7bba30f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/spike.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/spike.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/spike.proto" beforeDir="false" afterPath="$PROJECT_DIR$/bin/spike.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/topic.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/topic.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/client-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client-subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/client-unsubscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client-unsubscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/models.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/subscriber.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/subscriber.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service-saveTopic.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service-saveTopic.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server-publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-publish.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server-unsubscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-unsubscribe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/client_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/client_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +49,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -51,21 +68,19 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <configuration name="TestClient in spike.io/test" type="GoTestRunConfiguration" factoryName="Go Test" nameIsGenerated="true">
       <module name="spike.io" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="spike.io" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
+      <working_directory value="$PROJECT_DIR$/test" />
+      <envs>
+        <env name="DB_CONN" value="host=127.0.0.1 port=5432 user=postgres dbname=postgres password=root123 sslmode=disable" />
+      </envs>
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="spike.io/test" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
+      <pattern value="^\QTestClient\E$" />
       <method v="2" />
     </configuration>
   </component>
@@ -83,6 +98,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -94,6 +110,11 @@
           <url>file://$USER_HOME$/go/pkg/mod/google.golang.org/grpc@v1.40.0/server.go</url>
           <line>617</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go</url>
+          <line>46</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

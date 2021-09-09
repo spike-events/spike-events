@@ -31,25 +31,35 @@ func (s *server) unsubscribe(topic *bin.Topic) {
 	var updatedSubscribers []*subscribe
 	sub := s.subscribers[topic.Topic]
 	for _, m := range sub {
-		if m.topic.GetGroupId() != topic.GetGroupId() {
-			updatedSubscribers = append(updatedSubscribers, m)
+		if m.topic.GetId() == topic.GetId() {
+			m.msg <- &bin.Message{Offset: -1}
+			<-m.success
+			close(m.msg)
+			close(m.success)
+			continue
 		}
-		close(m.msg)
-		close(m.success)
+		updatedSubscribers = append(updatedSubscribers, m)
 	}
 	s.subscribers[topic.GetTopic()] = updatedSubscribers
 	if len(s.subscribers[topic.GetTopic()]) == 0 {
 		delete(s.subscribers, topic.GetTopic())
 	}
 
+	if s.subscribersNonPersistence == nil {
+		s.subscribersNonPersistence = make(map[string][]*subscribe)
+	}
+
 	var updatedSubscribersNonPersistent []*subscribe
 	subNonPersistent := s.subscribersNonPersistence[topic.Topic]
 	for _, m := range subNonPersistent {
-		if m.topic.GetGroupId() != topic.GetGroupId() {
-			updatedSubscribersNonPersistent = append(updatedSubscribersNonPersistent, m)
+		if m.topic.GetId() != topic.GetId() {
+			m.msg <- &bin.Message{Offset: -1}
+			<-m.success
+			close(m.msg)
+			close(m.success)
+			continue
 		}
-		close(m.msg)
-		close(m.success)
+		updatedSubscribersNonPersistent = append(updatedSubscribersNonPersistent, m)
 	}
 	s.subscribersNonPersistence[topic.GetTopic()] = updatedSubscribersNonPersistent
 	if len(s.subscribersNonPersistence[topic.GetTopic()]) == 0 {

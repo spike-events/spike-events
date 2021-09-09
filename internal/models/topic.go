@@ -17,7 +17,7 @@ type Topic struct {
 }
 
 func (u *Topic) BeforeSave(tx *gorm.DB) (err error) {
-	payload, err := json.Marshal(u.OffsetData)
+	payload, err := json.Marshal(u.Offset)
 	if err != nil {
 		return
 	}
