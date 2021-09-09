@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    command: ["postgres", "-c", "log_statement=all"]
+    environment:
+      POSTGRES_USER: spike
+      POSTGRES_PASSWORD: spike
+      POSTGRES_DB: spike
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+
+  spike:
+    build:
+      context: ../
+      dockerfile: ./build/Dockerfile
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "5672:5672"
+    environment:
+      DB_CONN: "host=db port=5432 user=spike dbname=spike password=spike sslmode=disable timezone=UTC"
+
+volumes:
+  database-data:
