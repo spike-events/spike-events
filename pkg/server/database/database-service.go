@@ -12,9 +12,9 @@ import (
 
 type Service interface {
 	Subscribe(topicName, groupID string, offset int64) (models.Topic, error)
-	TopicMessages(topic models.Topic, groupID string, offset int64) ([]*bin.Message, error)
+	TopicMessages(topic *models.Topic, groupID string, offset int64) ([]*bin.Message, error)
 	CreateMessage(message *bin.Message) error
-	UpdateTopics(topic *models.Topic) error
+	UpdateTopics(topic, group string, offset int64) error
 }
 
 type srv struct {

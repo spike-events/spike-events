@@ -202,4 +202,30 @@ func TestClient(t *testing.T) {
 	})
 
 	wg.Wait()
+
+	sub7.Close()
+
+	wg.Add(2)
+	spikeConn.Publish(client.Message{
+		Topic:  "spike.event",
+		Value:  []byte("monitor_2 message"),
+	})
+	sub7, err = spikeConn.Subscribe(ctx, client.Topic{
+		Topic:      "spike.event",
+		GroupId:    "monitor_2",
+		Persistent: true,
+	})
+	if err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
+
+	go func() {
+		for msg := range sub7.Event() {
+			fmt.Println("monitor_2:", string(msg.Value))
+			wg.Done()
+		}
+	}()
+
+	wg.Wait()
 }

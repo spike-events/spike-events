@@ -3,7 +3,6 @@ package server
 import (
 	"fmt"
 	"spike.io/bin"
-	"spike.io/internal/models"
 )
 
 type balancerMessage struct {
@@ -51,13 +50,6 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool, id string) e
 		}
 		return nil
 	}
-	updateOffset := func(group string) {
-		for _, sub := range subs {
-			if sub.topic.GroupId == group {
-				sub.dbTopic.Offset[models.GroupID(group)] = &message.Offset
-			}
-		}
-	}
 	send := func(subs map[string][]*subscribe, persistent bool) error {
 		var err error
 		for _, item := range subs {
@@ -73,7 +65,7 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool, id string) e
 				}
 				err = nil
 				if persistent {
-					updateOffset(n.topic.GroupId)
+					s.db.UpdateTopics(message.GetTopic(), n.topic.GroupId, message.GetOffset())
 				}
 				break
 			}
@@ -84,11 +76,6 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool, id string) e
 	send(groupsSubsNonPersistent, false)
 
 	if err != nil {
-		return err
-	}
-
-	if len(subs) > 0 {
-		err := s.db.UpdateTopics(subs[0].dbTopic)
 		return err
 	}
 

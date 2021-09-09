@@ -12,7 +12,6 @@ type subscribe struct {
 	msg     chan *bin.Message
 	success chan error
 	topic   *bin.Topic
-	dbTopic *models.Topic
 	next    bool
 }
 
@@ -41,10 +40,10 @@ func (s *server) registerSubscribe(topic *bin.Topic) (chan *bin.Message, chan er
 	success := make(chan error, 100)
 	if topic.Persistent {
 		dbTopic := s.registerSubscribeDatabase(topic)
-		last := &subscribe{topic.GetId(), channel, success, topic, &dbTopic, isNext(s.subscribers[topic.Topic])}
+		last := &subscribe{topic.GetId(), channel, success, topic, isNext(s.subscribers[topic.Topic])}
 		s.subscribers[topic.Topic] = append(s.subscribers[topic.Topic], last)
 		go func() {
-			messages, err := s.db.TopicMessages(dbTopic, topic.GroupId, topic.Offset)
+			messages, err := s.db.TopicMessages(&dbTopic, topic.GroupId, topic.Offset)
 			if err != nil {
 				log.Println(err)
 			}
@@ -53,7 +52,7 @@ func (s *server) registerSubscribe(topic *bin.Topic) (chan *bin.Message, chan er
 			}
 		}()
 	} else {
-		last := &subscribe{topic.GetId(), channel, success, topic, nil, isNext(s.subscribersNonPersistence[topic.Topic])}
+		last := &subscribe{topic.GetId(), channel, success, topic, isNext(s.subscribersNonPersistence[topic.Topic])}
 		s.subscribersNonPersistence[topic.Topic] = append(s.subscribersNonPersistence[topic.Topic], last)
 	}
 	return channel, success
