@@ -39,10 +39,10 @@ func (s *server) registerSubscribe(topic *bin.Topic) (chan *bin.Message, chan er
 	channel := make(chan *bin.Message, 100)
 	success := make(chan error, 100)
 	if topic.Persistent {
-		dbTopic := s.registerSubscribeDatabase(topic)
 		last := &subscribe{topic.GetId(), channel, success, topic, isNext(s.subscribers[topic.Topic])}
 		s.subscribers[topic.Topic] = append(s.subscribers[topic.Topic], last)
 		go func() {
+			dbTopic := s.registerSubscribeDatabase(topic)
 			messages, err := s.db.TopicMessages(&dbTopic, topic.GroupId, topic.Offset)
 			if err != nil {
 				log.Println(err)
