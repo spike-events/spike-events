@@ -9,7 +9,6 @@ import (
 	"spike.io/pkg/client"
 	"sync"
 	"testing"
-	"time"
 )
 
 func TestClient(t *testing.T) {
@@ -78,7 +77,6 @@ func TestClient(t *testing.T) {
 				Topic: "spike.event",
 				Value: value,
 			})
-			<-time.After(time.Second)
 		}
 	}()
 
@@ -197,8 +195,8 @@ func TestClient(t *testing.T) {
 	}()
 
 	spikeConn.Publish(client.Message{
-		Topic:  "spike.event",
-		Value:  []byte("multi channel"),
+		Topic: "spike.event",
+		Value: []byte("multi channel"),
 	})
 
 	wg.Wait()
@@ -207,8 +205,8 @@ func TestClient(t *testing.T) {
 
 	wg.Add(2)
 	spikeConn.Publish(client.Message{
-		Topic:  "spike.event",
-		Value:  []byte("monitor_2 message"),
+		Topic: "spike.event",
+		Value: []byte("monitor_2 message"),
 	})
 	sub7, err = spikeConn.Subscribe(ctx, client.Topic{
 		Topic:      "spike.event",
