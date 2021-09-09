@@ -30,8 +30,8 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool, id string) e
 		groupsSubsNonPersistent[item.topic.GroupId] = append(groupsSubsNonPersistent[item.topic.GroupId], item)
 	}
 
-	if newMessage && len(subs) > 0 {
-		err := s.db.CreateMessage(subs[0].dbTopic, message)
+	if newMessage {
+		err := s.db.CreateMessage(message)
 		if err != nil {
 			fmt.Println(err)
 		}

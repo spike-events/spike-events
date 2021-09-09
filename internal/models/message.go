@@ -10,7 +10,7 @@ import (
 type Message struct {
 	Base
 	MessageData datatypes.JSON
-	Message     bin.Message `gorm:"-"`
+	Message     *bin.Message `gorm:"-"`
 }
 
 func (u *Message) BeforeSave(tx *gorm.DB) (err error) {

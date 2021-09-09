@@ -3,14 +3,6 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.23">
     <root id="1">
       <ServerVersion>13.2</ServerVersion>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-13394||-9223372036854775808|c|G
-13394||10|c|G
-13394||10|C|G
-13394||10|T|G</Grants>
       <DateStyle>mdy</DateStyle>
       <TimeZones>true ACDT
 true ACSST
@@ -1416,7 +1408,7 @@ true posix/WET
 false posix/Zulu
 true posixrules
 </TimeZones>
-      <IntrospectionStateNumber>160492</IntrospectionStateNumber>
+      <IntrospectionStateNumber>160939</IntrospectionStateNumber>
       <StartupTime>1631189029</StartupTime>
     </root>
     <database id="2" parent="1" name="postgres">
@@ -1433,10 +1425,10 @@ true posixrules
 207903||-9223372036854775808|U|G
 207903||10|U|G</Grants>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>160493</IntrospectionStateNumber>
+      <IntrospectionStateNumber>160940</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|240668|240670|1
-sequence|table|240681|240683|1
+      <Relations>sequence|table|240934|240936|1
+sequence|table|240921|240923|1
 </Relations>
     </database>
     <role id="3" parent="1" name="pg_execute_server_program">
@@ -1501,7 +1493,7 @@ sequence|table|240681|240683|1
       <Comment>standard public schema</Comment>
       <StateNumber>82209</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>160493</IntrospectionStateNumber>
+      <IntrospectionStateNumber>160940</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="17" parent="2" name="plpgsql">
@@ -1663,28 +1655,28 @@ sequence|table|240681|240683|1
       <SequenceIdentity>null(13)</SequenceIdentity>
       <DataType>bigint|0s</DataType>
     </sequence>
-    <sequence id="38" parent="16" name="topic_messages_ff858bf1c55b424f89eadce751794ff4_id_seq">
-      <ObjectId>240681</ObjectId>
+    <sequence id="38" parent="16" name="topic_messages_5a46c4e3a1264b89ac85b9f3bf028f4c_id_seq">
+      <ObjectId>240934</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>160459</StateNumber>
+      <StateNumber>160886</StateNumber>
       <DataType>bigint|0s</DataType>
     </sequence>
     <sequence id="39" parent="16" name="topics_id_seq">
-      <ObjectId>240668</ObjectId>
+      <ObjectId>240921</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <DataType>bigint|0s</DataType>
     </sequence>
-    <table id="40" parent="16" name="topic_messages_ff858bf1c55b424f89eadce751794ff4">
-      <ObjectId>240683</ObjectId>
+    <table id="40" parent="16" name="topic_messages_5a46c4e3a1264b89ac85b9f3bf028f4c">
+      <ObjectId>240936</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>160459</StateNumber>
+      <StateNumber>160886</StateNumber>
       <AccessMethodId>2</AccessMethodId>
     </table>
     <table id="41" parent="16" name="topics">
-      <ObjectId>240670</ObjectId>
+      <ObjectId>240923</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <AccessMethodId>2</AccessMethodId>
     </table>
     <routine id="42" parent="16" name="unaccent">
@@ -1731,37 +1723,37 @@ sequence|table|240681|240683|1
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>160459</StateNumber>
-      <DefaultExpression>nextval(&apos;topic_messages_ff858bf1c55b424f89eadce751794ff4_id_seq&apos;::regclass)</DefaultExpression>
+      <StateNumber>160886</StateNumber>
+      <DefaultExpression>nextval(&apos;topic_messages_5a46c4e3a1264b89ac85b9f3bf028f4c_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>20</TypeId>
     </column>
     <column id="47" parent="40" name="created_at">
       <Position>2</Position>
       <DataType>timestamp with time zone|0s</DataType>
-      <StateNumber>160459</StateNumber>
+      <StateNumber>160886</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <column id="48" parent="40" name="updated_at">
       <Position>3</Position>
       <DataType>timestamp with time zone|0s</DataType>
-      <StateNumber>160459</StateNumber>
+      <StateNumber>160886</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <column id="49" parent="40" name="deleted_at">
       <Position>4</Position>
       <DataType>timestamp with time zone|0s</DataType>
-      <StateNumber>160459</StateNumber>
+      <StateNumber>160886</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <column id="50" parent="40" name="message_data">
       <Position>5</Position>
       <DataType>jsonb|0s</DataType>
-      <StateNumber>160459</StateNumber>
+      <StateNumber>160886</StateNumber>
       <TypeId>3802</TypeId>
     </column>
-    <index id="51" parent="40" name="topic_messages_ff858bf1c55b424f89eadce751794ff4_pkey">
-      <ObjectId>240690</ObjectId>
-      <StateNumber>160459</StateNumber>
+    <index id="51" parent="40" name="topic_messages_5a46c4e3a1264b89ac85b9f3bf028f4c_pkey">
+      <ObjectId>240943</ObjectId>
+      <StateNumber>160886</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -1770,67 +1762,67 @@ sequence|table|240681|240683|1
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="52" parent="40" name="idx_messages_deleted_at">
-      <ObjectId>240692</ObjectId>
-      <StateNumber>160460</StateNumber>
+      <ObjectId>240945</ObjectId>
+      <StateNumber>160887</StateNumber>
       <ColNames>deleted_at</ColNames>
       <CollationIds>0</CollationIds>
       <ClassIds>3127</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="53" parent="40" name="topic_messages_ff858bf1c55b424f89eadce751794ff4_pkey">
-      <ObjectId>240691</ObjectId>
-      <StateNumber>160459</StateNumber>
+    <key id="53" parent="40" name="topic_messages_5a46c4e3a1264b89ac85b9f3bf028f4c_pkey">
+      <ObjectId>240944</ObjectId>
+      <StateNumber>160886</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
-      <UnderlyingIndexName>topic_messages_ff858bf1c55b424f89eadce751794ff4_pkey</UnderlyingIndexName>
+      <UnderlyingIndexName>topic_messages_5a46c4e3a1264b89ac85b9f3bf028f4c_pkey</UnderlyingIndexName>
     </key>
     <column id="54" parent="41" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <DefaultExpression>nextval(&apos;topics_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>20</TypeId>
     </column>
     <column id="55" parent="41" name="created_at">
       <Position>2</Position>
       <DataType>timestamp with time zone|0s</DataType>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <column id="56" parent="41" name="updated_at">
       <Position>3</Position>
       <DataType>timestamp with time zone|0s</DataType>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <column id="57" parent="41" name="deleted_at">
       <Position>4</Position>
       <DataType>timestamp with time zone|0s</DataType>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <column id="58" parent="41" name="table">
       <Position>5</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="59" parent="41" name="name">
       <Position>6</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="60" parent="41" name="offset_data">
       <Position>7</Position>
       <DataType>jsonb|0s</DataType>
-      <StateNumber>160455</StateNumber>
+      <StateNumber>160882</StateNumber>
       <TypeId>3802</TypeId>
     </column>
     <index id="61" parent="41" name="topics_pkey">
-      <ObjectId>240677</ObjectId>
-      <StateNumber>160455</StateNumber>
+      <ObjectId>240930</ObjectId>
+      <StateNumber>160882</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -1839,16 +1831,16 @@ sequence|table|240681|240683|1
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="62" parent="41" name="idx_topics_deleted_at">
-      <ObjectId>240680</ObjectId>
-      <StateNumber>160457</StateNumber>
+      <ObjectId>240932</ObjectId>
+      <StateNumber>160883</StateNumber>
       <ColNames>deleted_at</ColNames>
       <CollationIds>0</CollationIds>
       <ClassIds>3127</ClassIds>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="63" parent="41" name="idx_topics_name">
-      <ObjectId>240679</ObjectId>
-      <StateNumber>160456</StateNumber>
+      <ObjectId>240933</ObjectId>
+      <StateNumber>160884</StateNumber>
       <ColNames>name</ColNames>
       <CollationIds>100</CollationIds>
       <CollationNames>default</CollationNames>
@@ -1856,8 +1848,8 @@ sequence|table|240681|240683|1
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="64" parent="41" name="topics_pkey">
-      <ObjectId>240678</ObjectId>
-      <StateNumber>160455</StateNumber>
+      <ObjectId>240931</ObjectId>
+      <StateNumber>160882</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>topics_pkey</UnderlyingIndexName>

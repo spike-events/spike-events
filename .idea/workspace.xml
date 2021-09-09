@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd3ed2d6-b08c-4245-999f-7d85b7bba30f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0d801c1c-e638-4b19-bfdc-05b0261d3ce8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0d801c1c-e638-4b19-bfdc-05b0261d3ce8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0d801c1c-e638-4b19-bfdc-05b0261d3ce8/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0d801c1c-e638-4b19-bfdc-05b0261d3ce8/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/spike.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/spike.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/spike.proto" beforeDir="false" afterPath="$PROJECT_DIR$/bin/spike.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/models/topic.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/topic.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/client/client-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client-subscribe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/client/client-unsubscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client-unsubscribe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/client/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/models.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/client/subscriber.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/subscriber.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service-saveTopic.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service-saveTopic.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/message.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/message.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service-createMessage.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service-createMessage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/server-publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-publish.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-sendMessage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/server-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-subscribe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/server-unsubscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server-unsubscribe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/client_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/client_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,9 +104,14 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/server/database/database-service-subscribe.go</url>
-          <line>46</line>
-          <option name="timeStamp" value="15" />
+          <url>file://$PROJECT_DIR$/test/client_test.go</url>
+          <line>174</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/client_test.go</url>
+          <line>198</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

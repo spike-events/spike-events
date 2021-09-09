@@ -22,11 +22,26 @@ func (s *server) registerSubscribe(topic *bin.Topic) (chan *bin.Message, chan er
 	if s.subscribers == nil {
 		s.subscribers = make(map[string][]*subscribe)
 	}
+	isNext := func(subs []*subscribe) bool {
+		if len(subs) == 0 {
+			return true
+		}
+		var countGroup int
+		for _, item := range subs {
+			if item.topic.GetGroupId() == topic.GetGroupId() {
+				countGroup++
+			}
+		}
+		if countGroup == 0 {
+			return true
+		}
+		return false
+	}
 	channel := make(chan *bin.Message, 100)
 	success := make(chan error, 100)
 	if topic.Persistent {
 		dbTopic := s.registerSubscribeDatabase(topic)
-		last := &subscribe{topic.GetId(), channel, success, topic, &dbTopic, len(s.subscribers[topic.Topic]) == 0}
+		last := &subscribe{topic.GetId(), channel, success, topic, &dbTopic, isNext(s.subscribers[topic.Topic])}
 		s.subscribers[topic.Topic] = append(s.subscribers[topic.Topic], last)
 		go func() {
 			messages, err := s.db.TopicMessages(dbTopic, topic.GroupId, topic.Offset)
@@ -38,7 +53,7 @@ func (s *server) registerSubscribe(topic *bin.Topic) (chan *bin.Message, chan er
 			}
 		}()
 	} else {
-		last := &subscribe{topic.GetId(), channel, success, topic, nil, len(s.subscribersNonPersistence[topic.Topic]) == 0}
+		last := &subscribe{topic.GetId(), channel, success, topic, nil, isNext(s.subscribersNonPersistence[topic.Topic])}
 		s.subscribersNonPersistence[topic.Topic] = append(s.subscribersNonPersistence[topic.Topic], last)
 	}
 	return channel, success

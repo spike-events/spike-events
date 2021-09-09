@@ -130,4 +130,76 @@ func TestClient(t *testing.T) {
 
 	wg.Wait()
 
+	sub4.Close()
+
+	for i := 0; i < 10; i++ {
+		value, _ := json.Marshal(map[string]interface{}{"ok": i})
+		spikeConn.Publish(client.Message{
+			Topic: "spike.event",
+			Value: value,
+		})
+	}
+
+	sub5, err := spikeConn.Subscribe(ctx, client.Topic{
+		Topic:      "spike.event",
+		GroupId:    "monitor",
+		Persistent: true,
+	})
+	if err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
+
+	wg.Add(10)
+	go func() {
+		for msg := range sub5.Event() {
+			fmt.Println("sub5:", string(msg.Value))
+			wg.Done()
+		}
+	}()
+
+	wg.Wait()
+
+	sub5.Close()
+
+	sub6, err := spikeConn.Subscribe(ctx, client.Topic{
+		Topic:      "spike.event",
+		GroupId:    "monitor",
+		Persistent: true,
+	})
+	if err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
+
+	sub7, err := spikeConn.Subscribe(ctx, client.Topic{
+		Topic:      "spike.event",
+		GroupId:    "monitor_2",
+		Persistent: true,
+	})
+	if err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
+
+	wg.Add(2)
+	go func() {
+		for msg := range sub6.Event() {
+			fmt.Println("sub6:", string(msg.Value))
+			wg.Done()
+		}
+	}()
+	go func() {
+		for msg := range sub7.Event() {
+			fmt.Println("sub7:", string(msg.Value))
+			wg.Done()
+		}
+	}()
+
+	spikeConn.Publish(client.Message{
+		Topic:  "spike.event",
+		Value:  []byte("multi channel"),
+	})
+
+	wg.Wait()
 }
