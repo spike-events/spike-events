@@ -2,12 +2,13 @@ package database
 
 import (
 	"fmt"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"os"
 	"github.com/spike-events/spike-events/bin"
 	"github.com/spike-events/spike-events/internal/env"
 	"github.com/spike-events/spike-events/internal/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"os"
+	"sync"
 )
 
 type Service interface {
@@ -19,6 +20,7 @@ type Service interface {
 
 type srv struct {
 	*gorm.DB
+	m sync.Mutex
 }
 
 func New() Service {
@@ -30,7 +32,7 @@ func New() Service {
 	if err != nil {
 		panic(err)
 	}
-	return &srv{db}
+	return &srv{DB: db}
 }
 
 func defaultMigration(db *gorm.DB) error {

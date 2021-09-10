@@ -11,6 +11,9 @@ import (
 var TemplateTableName = "topic_messages_%v"
 
 func (s *srv) Subscribe(topicName, groupID string, offset int64) (models.Topic, error) {
+	defer s.m.Unlock()
+	s.m.Lock()
+
 	var topic models.Topic
 
 	err := s.Debug().Where(&models.Topic{Name: topicName}).First(&topic).Error

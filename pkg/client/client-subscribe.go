@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/google/uuid"
+	"github.com/spike-events/spike-events/bin"
 	"google.golang.org/grpc"
 	"io"
 	"log"
-	"github.com/spike-events/spike-events/bin"
-	"time"
 )
 
 func (c *srv) Subscribe(ctx context.Context, topic Topic) (*Subscriber, error) {
@@ -32,6 +31,8 @@ func (c *srv) subscribe(ctx context.Context, topic *bin.Topic, stream grpc.Clien
 	channel := make(chan *Message, 100)
 	sub := &Subscriber{m: channel, connect: true, topic: topic, ctx: ctx, client: c}
 	sub.wg.Add(1)
+	connect := make(chan bool)
+	defer close(connect)
 	go func() {
 		defer close(channel)
 		defer sub.wg.Done()
@@ -65,10 +66,14 @@ func (c *srv) subscribe(ctx context.Context, topic *bin.Topic, stream grpc.Clien
 				sub.connect = false
 				return
 			}
+			if message.GetTopic() == "connected" {
+				connect <- true
+				continue
+			}
 			log.Println("new message:", message)
 			channel <- protoToMessage(&message)
 		}
 	}()
-	<-time.After(time.Millisecond * 250)
+	<-connect
 	return sub
 }

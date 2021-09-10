@@ -55,6 +55,9 @@ func (s *server) sendMessage(message *bin.Message, newMessage bool, id string) e
 		for _, item := range subs {
 			for i := 0; i < len(item); i++ {
 				n := next(item)
+				if n == nil {
+					fmt.Println("error")
+				}
 				fmt.Println("send message channel:", message)
 				n.msg <- message
 				fmt.Println("read message channel:", message)

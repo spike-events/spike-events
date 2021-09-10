@@ -9,6 +9,7 @@ import (
 	"github.com/spike-events/spike-events/pkg/client"
 	"sync"
 	"testing"
+	"time"
 )
 
 func TestClient(t *testing.T) {
@@ -71,12 +72,13 @@ func TestClient(t *testing.T) {
 	go func() {
 		defer wg.Done()
 		for i := 0; i < 10; i++ {
-			value, _ := json.Marshal(map[string]interface{}{"ok": true})
+			value, _ := json.Marshal(map[string]interface{}{"ok": i})
 			wg.Add(1)
 			spikeConn.Publish(client.Message{
 				Topic: "spike.event",
 				Value: value,
 			})
+			<-time.After(time.Millisecond*200)
 		}
 	}()
 

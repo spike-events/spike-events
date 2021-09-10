@@ -6,13 +6,16 @@ import (
 )
 
 func (s *srv) CreateMessage(message *bin.Message) error {
+	defer s.m.Unlock()
+	s.m.Lock()
+
 	var dbTopic models.Topic
 	err := s.Where(&models.Topic{Name: message.GetTopic()}).First(&dbTopic).Error
 	if err == nil {
 		msg := models.Message{
 			Message: message,
 		}
-		err := s.Table(dbTopic.Table).Create(&msg).Error
+		err := s.Debug().Table(dbTopic.Table).Create(&msg).Error
 		if err != nil {
 			return err
 		}

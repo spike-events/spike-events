@@ -35,7 +35,6 @@ func (s *server) unsubscribe(topic *bin.Topic) {
 			m.msg <- &bin.Message{Offset: -1}
 			<-m.success
 			close(m.msg)
-			close(m.success)
 			continue
 		}
 		updatedSubscribers = append(updatedSubscribers, m)
@@ -56,7 +55,6 @@ func (s *server) unsubscribe(topic *bin.Topic) {
 			m.msg <- &bin.Message{Offset: -1}
 			<-m.success
 			close(m.msg)
-			close(m.success)
 			continue
 		}
 		updatedSubscribersNonPersistent = append(updatedSubscribersNonPersistent, m)
