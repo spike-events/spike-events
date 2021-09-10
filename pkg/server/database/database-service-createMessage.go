@@ -6,9 +6,7 @@ import (
 )
 
 func (s *srv) CreateMessage(message *bin.Message) error {
-	defer s.m.Unlock()
-	s.m.Lock()
-
+	s.wg.Wait()
 	var dbTopic models.Topic
 	err := s.Where(&models.Topic{Name: message.GetTopic()}).First(&dbTopic).Error
 	if err == nil {

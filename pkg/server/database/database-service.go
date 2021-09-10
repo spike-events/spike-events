@@ -20,7 +20,8 @@ type Service interface {
 
 type srv struct {
 	*gorm.DB
-	m sync.Mutex
+	m  sync.Mutex
+	wg sync.WaitGroup
 }
 
 func New() Service {

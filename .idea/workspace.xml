@@ -51,7 +51,7 @@
       <recent name="$PROJECT_DIR$/bin" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build spike.io/cmd">
+  <component name="RunManager" selected="Go Test.TestClient in github.com/spike-events/spike-events/test">
     <configuration name="go build spike.io/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="spike.io" />
       <working_directory value="$PROJECT_DIR$" />
@@ -64,7 +64,7 @@
       <filePath value="$PROJECT_DIR$/cmd/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="TestClient in spike.io/test" type="GoTestRunConfiguration" factoryName="Go Test" nameIsGenerated="true">
+    <configuration name="TestClient in github.com/spike-events/spike-events/test" type="GoTestRunConfiguration" factoryName="Go Test" nameIsGenerated="true">
       <module name="spike.io" />
       <working_directory value="$PROJECT_DIR$/test" />
       <envs>
@@ -72,7 +72,7 @@
       </envs>
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="spike.io/test" />
+      <package value="github.com/spike-events/spike-events/test" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -81,7 +81,7 @@
     </configuration>
     <list>
       <item itemvalue="Go Build.go build spike.io/cmd" />
-      <item itemvalue="Go Test.TestClient in spike.io/test" />
+      <item itemvalue="Go Test.TestClient in github.com/spike-events/spike-events/test" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -110,6 +110,41 @@
           <url>file://$USER_HOME$/go/pkg/mod/google.golang.org/grpc@v1.40.0/server.go</url>
           <line>617</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/server/server-unsubscribe.go</url>
+          <line>54</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/server/server-sendMessage.go</url>
+          <line>58</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/client_test.go</url>
+          <line>107</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/client_test.go</url>
+          <line>130</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/client_test.go</url>
+          <line>105</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/client_test.go</url>
+          <line>122</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/client_test.go</url>
+          <line>132</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
