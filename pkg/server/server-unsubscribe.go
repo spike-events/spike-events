@@ -52,7 +52,7 @@ func (s *server) unsubscribe(topic *bin.Topic) {
 	var updatedSubscribersNonPersistent []*subscribe
 	subNonPersistent := s.subscribersNonPersistence[topic.Topic]
 	for _, m := range subNonPersistent {
-		if m.topic.GetId() != topic.GetId() {
+		if m.topic.GetId() == topic.GetId() {
 			m.msg <- &bin.Message{Offset: -1}
 			<-m.success
 			close(m.msg)
