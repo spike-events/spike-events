@@ -2,9 +2,9 @@ package server
 
 import (
 	"fmt"
-	"log"
 	"github.com/spike-events/spike-events/bin"
 	"github.com/spike-events/spike-events/internal/models"
+	"log"
 )
 
 type subscribe struct {
@@ -20,6 +20,9 @@ func (s *server) registerSubscribe(topic *bin.Topic) (chan *bin.Message, chan er
 	s.m.Lock()
 	if s.subscribers == nil {
 		s.subscribers = make(map[string][]*subscribe)
+	}
+	if s.subscribersNonPersistence == nil {
+		s.subscribersNonPersistence = make(map[string][]*subscribe)
 	}
 	isNext := func(subs []*subscribe) bool {
 		if len(subs) == 0 {
