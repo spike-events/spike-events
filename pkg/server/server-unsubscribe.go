@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
-	"spike.io/bin"
+	"github.com/spike-events/spike-events/bin"
 )
 
 func (s *server) Unsubscribe(ctx context.Context, topic *bin.Topic) (*bin.Success, error) {

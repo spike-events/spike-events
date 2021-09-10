@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"spike.io/bin"
+	"github.com/spike-events/spike-events/bin"
 )
 
 func (c *srv) unsubscribe(topic *bin.Topic) (*Success, error) {

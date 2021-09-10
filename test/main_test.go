@@ -2,12 +2,12 @@ package test
 
 import (
 	"fmt"
+	"github.com/spike-events/spike-events/pkg/client"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
 	"os"
-	"spike.io/pkg/client"
 	"strconv"
 	"testing"
 	"time"

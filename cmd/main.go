@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"spike.io/pkg/server"
+	"github.com/spike-events/spike-events/pkg/server"
 	"syscall"
 )
 

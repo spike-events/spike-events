@@ -3,8 +3,8 @@ package server
 import (
 	"fmt"
 	"log"
-	"spike.io/bin"
-	"spike.io/internal/models"
+	"github.com/spike-events/spike-events/bin"
+	"github.com/spike-events/spike-events/internal/models"
 )
 
 type subscribe struct {

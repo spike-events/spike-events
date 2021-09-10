@@ -4,8 +4,8 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	"spike.io/bin"
-	"spike.io/pkg/server/database"
+	"github.com/spike-events/spike-events/bin"
+	"github.com/spike-events/spike-events/pkg/server/database"
 	"sync"
 	"time"
 )

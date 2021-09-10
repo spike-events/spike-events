@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"gorm.io/gorm"
 	"log"
-	"spike.io/internal/models"
+	"github.com/spike-events/spike-events/internal/models"
 )
 
 func (s *srv) UpdateTopics(topic, group string, offset int64) error {

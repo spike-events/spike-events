@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
-	"spike.io/bin"
+	"github.com/spike-events/spike-events/bin"
 )
 
 type Message struct {

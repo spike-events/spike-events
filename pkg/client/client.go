@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 	"google.golang.org/grpc"
-	"spike.io/bin"
+	"github.com/spike-events/spike-events/bin"
 )
 
 type Conn interface {

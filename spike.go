@@ -1,8 +1,8 @@
 package spike_io
 
 import (
-	"spike.io/pkg/client"
-	"spike.io/pkg/server"
+	"github.com/spike-events/spike-events/pkg/client"
+	"github.com/spike-events/spike-events/pkg/server"
 )
 
 func NewClient(host string) (client.Conn, error) {

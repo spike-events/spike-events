@@ -1,6 +1,6 @@
 package server
 
-import "spike.io/bin"
+import "github.com/spike-events/spike-events/bin"
 
 var ResponseSuccess = &bin.Success{Success: true, Code: 200}
 

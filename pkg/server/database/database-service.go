@@ -5,9 +5,9 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
-	"spike.io/bin"
-	"spike.io/internal/env"
-	"spike.io/internal/models"
+	"github.com/spike-events/spike-events/bin"
+	"github.com/spike-events/spike-events/internal/env"
+	"github.com/spike-events/spike-events/internal/models"
 )
 
 type Service interface {

@@ -3,8 +3,8 @@ package database
 import (
 	"fmt"
 	"github.com/google/uuid"
-	"spike.io/bin"
-	"spike.io/internal/models"
+	"github.com/spike-events/spike-events/bin"
+	"github.com/spike-events/spike-events/internal/models"
 	"strings"
 )
 

@@ -1,4 +1,4 @@
-module spike.io
+module github.com/spike-events/spike-events
 
 go 1.16
 

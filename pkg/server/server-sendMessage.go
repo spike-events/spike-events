@@ -2,7 +2,7 @@ package server
 
 import (
 	"fmt"
-	"spike.io/bin"
+	"github.com/spike-events/spike-events/bin"
 )
 
 type balancerMessage struct {

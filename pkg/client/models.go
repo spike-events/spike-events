@@ -1,6 +1,6 @@
 package client
 
-import "spike.io/bin"
+import "github.com/spike-events/spike-events/bin"
 
 type Topic struct {
 	Topic      string `json:"topic,omitempty"`

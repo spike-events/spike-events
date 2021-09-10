@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"io"
 	"log"
-	"spike.io/bin"
+	"github.com/spike-events/spike-events/bin"
 	"time"
 )
 

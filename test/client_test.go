@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	spike_io "spike.io"
-	"spike.io/internal/env"
-	"spike.io/pkg/client"
+	spike_io "github.com/spike-events/spike-events"
+	"github.com/spike-events/spike-events/internal/env"
+	"github.com/spike-events/spike-events/pkg/client"
 	"sync"
 	"testing"
 )
