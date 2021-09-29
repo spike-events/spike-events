@@ -46,7 +46,7 @@ func connectDatabase() (*gorm.DB, error) {
 		return nil, fmt.Errorf("no DB_CONN environment variable provided")
 	}
 	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  env.ConnectionString,
+		DSN:                  connStr,
 		PreferSimpleProtocol: true,
 	}), &gorm.Config{})
 	base, err := db.DB()
