@@ -41,7 +41,7 @@ func defaultMigration(db *gorm.DB) error {
 }
 
 func connectDatabase() (*gorm.DB, error) {
-	connStr := os.Getenv("DB_CONN")
+	connStr := os.Getenv("SPIKE_DB_CONN")
 	if len(connStr) == 0 {
 		return nil, fmt.Errorf("no DB_CONN environment variable provided")
 	}
