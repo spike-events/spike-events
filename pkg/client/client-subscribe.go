@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc"
 	"io"
 	"log"
+	"time"
 )
 
 func (c *srv) Subscribe(ctx context.Context, topic Topic) (*Subscriber, error) {
@@ -75,5 +76,6 @@ func (c *srv) subscribe(ctx context.Context, topic *bin.Topic, stream grpc.Clien
 		}
 	}()
 	<-connect
+	<-time.After(time.Millisecond*100)
 	return sub
 }
