@@ -2,8 +2,8 @@ package server
 
 import (
 	"context"
-	"fmt"
 	"github.com/spike-events/spike-events/bin"
+	"log"
 )
 
 func (s *server) Publish(ctx context.Context, message *bin.Message) (*bin.Success, error) {
@@ -16,8 +16,9 @@ func (s *server) Publish(ctx context.Context, message *bin.Message) (*bin.Succes
 		return responseError("context done"), nil
 	default:
 	}
-	fmt.Println("publish:", message)
+	log.Println(">>> server publish: ", message.GetTopic(), message)
 	err = s.sendMessage(message, true, "")
+	log.Println("<<< server publish: ", message.GetTopic(), message)
 	if err != nil {
 		return responseError(err.Error()), err
 	}

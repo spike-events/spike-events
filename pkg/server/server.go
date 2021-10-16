@@ -1,11 +1,11 @@
 package server
 
 import (
+	"github.com/spike-events/spike-events/bin"
+	"github.com/spike-events/spike-events/pkg/server/database"
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	"github.com/spike-events/spike-events/bin"
-	"github.com/spike-events/spike-events/pkg/server/database"
 	"sync"
 	"time"
 )
@@ -32,7 +32,7 @@ func New(host string) (chan bool, error) {
 		s := grpc.NewServer()
 		bin.RegisterSpikeServer(s, srv)
 
-		log.Println("start server")
+		log.Println(">>> server start")
 
 		// and start...c
 		go func() {

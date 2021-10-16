@@ -15,7 +15,7 @@ import (
 
 // ConnectDatabase connect dabase postgres
 func connectDatabase() (*gorm.DB, error) {
-	env := os.Getenv("DB_CONN")
+	env := os.Getenv("SPIKE_DB_CONN")
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{

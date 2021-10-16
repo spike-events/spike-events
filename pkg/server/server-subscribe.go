@@ -78,9 +78,9 @@ func (s *server) Subscribe(topic *bin.Topic, subscribeServer bin.Spike_Subscribe
 	cMessages, cSuccess := s.registerSubscribe(topic)
 	cMessages <- &bin.Message{Topic: "connected"}
 	for msg := range cMessages {
-		log.Println("send message:", msg)
+		log.Println(">>> server send message subscribe:", msg.GetOffset(), msg.GetTopic())
 		cSuccess <- subscribeServer.Send(msg)
 	}
 	close(cSuccess)
-	return fmt.Errorf("subscriber closed")
+	return fmt.Errorf(">>> server subscriber closed")
 }

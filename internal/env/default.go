@@ -6,7 +6,7 @@ import (
 )
 
 var SpikePort = 5672
-var ConnectionString = os.Getenv("DB_CONN")
+var ConnectionString = os.Getenv("SPIKE_DB_CONN")
 var MaxConnections = 5
 
 func init() {

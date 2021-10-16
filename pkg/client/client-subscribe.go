@@ -8,7 +8,6 @@ import (
 	"google.golang.org/grpc"
 	"io"
 	"log"
-	"time"
 )
 
 func (c *srv) Subscribe(ctx context.Context, topic Topic) (*Subscriber, error) {
@@ -60,6 +59,7 @@ func (c *srv) subscribe(ctx context.Context, topic *bin.Topic, stream grpc.Clien
 				}
 				continue
 			}
+			log.Println(">>> client subscribe: ", message)
 			if message.GetOffset() == -1 {
 				if c.onDisconnect != nil {
 					go c.onDisconnect(protoToTopic(topic), fmt.Errorf("disconnect io.EOF"))
@@ -71,11 +71,9 @@ func (c *srv) subscribe(ctx context.Context, topic *bin.Topic, stream grpc.Clien
 				connect <- true
 				continue
 			}
-			log.Println("new message:", message)
 			channel <- protoToMessage(&message)
 		}
 	}()
 	<-connect
-	<-time.After(time.Millisecond*100)
 	return sub
 }

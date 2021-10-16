@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd3ed2d6-b08c-4245-999f-7d85b7bba30f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0d801c1c-e638-4b19-bfdc-05b0261d3ce8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0d801c1c-e638-4b19-bfdc-05b0261d3ce8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/env/default.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/env/default.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/client-subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/client-subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/database/database-service.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/database/database-service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/main_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +85,7 @@
       <module name="spike.io" />
       <working_directory value="$PROJECT_DIR$/test" />
       <envs>
-        <env name="DB_CONN" value="host=127.0.0.1 port=5432 user=postgres dbname=postgres password=root123 sslmode=disable" />
+        <env name="SPIKE_DB_CONN" value="host=127.0.0.1 port=5432 user=spike dbname=spike password=spike sslmode=disable" />
       </envs>
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
@@ -152,23 +155,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/test/client_test.go</url>
-          <line>130</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/test/client_test.go</url>
           <line>105</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/test/client_test.go</url>
-          <line>122</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/test/client_test.go</url>
-          <line>132</line>
-          <option name="timeStamp" value="19" />
+          <url>file://$PROJECT_DIR$/pkg/server/database/database-service.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

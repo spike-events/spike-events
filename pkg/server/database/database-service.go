@@ -43,7 +43,7 @@ func defaultMigration(db *gorm.DB) error {
 func connectDatabase() (*gorm.DB, error) {
 	connStr := os.Getenv("SPIKE_DB_CONN")
 	if len(connStr) == 0 {
-		return nil, fmt.Errorf("no DB_CONN environment variable provided")
+		return nil, fmt.Errorf("no SPIKE_DB_CONN environment variable provided")
 	}
 	db, err := gorm.Open(postgres.New(postgres.Config{
 		DSN:                  connStr,
